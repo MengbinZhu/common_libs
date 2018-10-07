@@ -1,0 +1,30 @@
+#!/bin/bash
+# $Id: netcdff_configure_gfortran_linux 4896 2016-05-30 08:54:50Z frdo $
+#
+# netcdf-fortran (v4.4.x) shell script for a local configure
+# USERS SHOULD MODIFY THIS SCRIPT AS REQUIRED FOR LOCAL INSTALL
+#
+# Compiler: gfortran / Linux (GCC local default)
+#
+PREFIX=${1-$LIBS_ROOT/gfortran}
+echo
+echo "Platform:"
+uname -a
+echo
+echo "Fortran compiler:"
+gfortran --version
+echo
+echo "C compiler:"
+gcc --version
+echo
+echo "Installation target:"
+echo "$PREFIX"
+echo
+#
+CC=gcc       CFLAGS="-O2 -w" \
+           CPPFLAGS="-I$PREFIX/include" \
+FC=gfortran FCFLAGS="-O2 -w" \
+F77=gfortran FFLAGS="-O2 -w" \
+            LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64" \
+               LIBS="-lhdf5 -lhdf5_hl -lnetcdf" \
+  ./configure --disable-shared --prefix=$PREFIX

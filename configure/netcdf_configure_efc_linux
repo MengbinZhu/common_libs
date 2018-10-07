@@ -1,0 +1,28 @@
+#!/bin/bash
+# $Id: netcdf_configure_efc_linux 5220 2017-02-21 13:34:29Z idculv $
+#
+# netcdf (v4.4.x) shell script for a local configure
+# USERS SHOULD MODIFY THIS SCRIPT AS REQUIRED FOR LOCAL INSTALL
+#
+# Compiler: efc / NEC TX
+#
+PREFIX=${1-$LIBS_ROOT/efc}
+echo
+echo "Platform:"
+uname -a
+echo
+echo "Fortran compiler:"
+efc -V
+echo
+echo "C compiler:"
+ecc -V
+echo
+echo "Installation target:"
+echo "$PREFIX"
+echo
+#
+FC=efc \
+CC=ecc       CFLAGS="-O2 -cm -w"                    \
+           CPPFLAGS="-I$PREFIX/include -DNAGf90Fortran" \
+            LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64" \
+  ./configure --disable-v2 --disable-shared --prefix=$PREFIX

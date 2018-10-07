@@ -1,0 +1,18 @@
+# $Id: ecbufr_configure_nagfor52_linux 4626 2015-10-27 14:14:28Z frdo $
+#
+#   ECMWF BUFR configuration file
+#
+# Compiler: nagfor52 / Linux
+#
+AR      = ar
+ARFLAGS = rv
+RANLIB  = /usr/bin/ranlib
+#
+CC      = gcc
+CFLAGS  = -O2 -w -Dlinux -DLITTLE_ENDIAN -DINTEGER_IS_INT
+FASTCFLAGS = $(CFLAGS)
+#
+FC      = nagfor52
+FFLAGS  = -O2 -w -fixed -f77 -mismatch -dusty \
+          -Dlinux -DLITTLE_ENDIAN -DINTEGER_IS_INT
+

@@ -1,0 +1,16 @@
+# $Id: ecbufr_configure_g95_cygwin 4452 2015-01-29 14:42:02Z idculv $
+#
+#   ECMWF BUFR configuration file
+#
+# Compiler: g95 / Cygwin
+#
+AR      = ar
+ARFLAGS = rv
+RANLIB  = /usr/bin/ranlib
+#
+CC      = gcc
+CFLAGS  = -O2 -w -DLITTLE_ENDIAN -DINTEGER_IS_INT
+FASTCFLAGS = $(CFLAGS)
+#
+FC      = g95
+FFLAGS  = -O2 -w -DLITTLE_ENDIAN -DINTEGER_IS_INT

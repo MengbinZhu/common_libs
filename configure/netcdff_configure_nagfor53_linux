@@ -1,0 +1,30 @@
+#!/bin/bash
+# $Id: netcdff_configure_nagfor53_linux 4896 2016-05-30 08:54:50Z frdo $
+#
+# netcdf-fortran (v4.4.x) shell script for a local configure
+# USERS SHOULD MODIFY THIS SCRIPT AS REQUIRED FOR LOCAL INSTALL
+#
+# Compiler: nagfor53 / Linux (NAGWare v5.3)
+#
+PREFIX=${1-$LIBS_ROOT/nagfor53}
+echo
+echo "Platform:"
+uname -a
+echo
+echo "Fortran compiler:"
+nagfor53 -V
+echo
+echo "C compiler:"
+gcc --version
+echo
+echo "Installation target:"
+echo "$PREFIX"
+echo
+#
+CC=gcc       CFLAGS="-O2 -w" \
+           CPPFLAGS="-I$PREFIX/include" \
+FC=nagfor53 FCFLAGS="-O2 -w -dusty -ieee=full" \
+F77=nagfor53 FFLAGS="-O2 -w -dusty -ieee=full" \
+            LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64" \
+               LIBS="-lhdf5 -lhdf5_hl -lnetcdf" \
+  ./configure --disable-shared --prefix=$PREFIX

@@ -1,0 +1,41 @@
+#!/bin/bash
+# $Id: hdf5_configure_sunf95_linux-suncc 4998 2016-07-08 20:28:24Z frdo $
+#
+# hdf5 (v1.8.x) shell script for a local configure
+# USERS SHOULD MODIFY THIS SCRIPT AS REQUIRED FOR LOCAL INSTALL
+#
+# Compiler: sunf95 / Linux (Oracle local default)
+#
+PREFIX=${1-$LIBS_ROOT/sunf95}
+echo
+echo "Platform:"
+uname -a
+echo
+echo "Fortran compiler:"
+sunf95 -V
+echo
+echo "C compiler:"
+suncc -V
+echo
+echo "Installation target:"
+echo "$PREFIX"
+echo
+#
+# The following is needed so that configure can find where
+# libmtsk.so lives. This assumes suncc is directly in PATH and
+# is not found via a softlink. Modify 'sunroot' and/or 'sunlibs'
+# if this bit of code doesn't work for you.
+sunpath=$(which suncc)
+sunroot=${sunpath%/bin/suncc}
+sunlibs=$sunroot/prod/lib/compilers/rtlibs/usr/lib/amd64
+#
+FC=sunf95 \
+CC=suncc   CFLAGS="-O -w -fPIC -m64" \
+         CPPFLAGS="-I$PREFIX/include" \
+          LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64 -L$sunlibs" \
+  ./configure --disable-shared --prefix=$PREFIX
+
+
+# NOTE: suncc cannot build shared libaries, hence the --disable-shared flag.
+# Alternatively, use CC=gcc in which case remove flags -m64 and
+# (optionally) --disable-shared

@@ -1,0 +1,30 @@
+#!/bin/bash
+# $Id: netcdff_configure_xlf95_aix 4738 2016-03-10 16:35:41Z frdo $
+#
+# netcdf-fortran (v4.4.x) shell script for a local configure
+# USERS SHOULD MODIFY THIS SCRIPT AS REQUIRED FOR LOCAL INSTALL
+#
+# Compiler: xlf95 / Linux
+#
+PREFIX=${1-$LIBS_ROOT/xlf95}
+echo
+echo "Platform:"
+uname -a
+echo
+echo "Fortran compiler:"
+xlf95 -qversion
+echo
+echo "C compiler:"
+gcc --version
+echo
+echo "Installation target:"
+echo "$PREFIX"
+echo
+#
+CC=gcc       CFLAGS="-O2 -w" \
+           CPPFLAGS="-I$PREFIX/include" \
+FC=xlf95    FCFLAGS="-O2 -w -q64 -qsuffix=f=f90" \
+            NMFLAGS="-X64" ARFLAGS="-X64 cru"    \
+            LDFLAGS="-L$PREFIX/lib" \
+               LIBS="-lhdf5 -lhdf5_hl -lnetcdf" \
+  ./configure --disable-shared --prefix=$PREFIX

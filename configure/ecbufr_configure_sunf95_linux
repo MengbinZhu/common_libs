@@ -1,0 +1,17 @@
+# $Id: ecbufr_configure_sunf95_linux 5117 2016-12-15 15:04:41Z idculv $
+#
+#   ECMWF BUFR configuration file
+#
+# Compiler: sunf95 / Linux (Oracle local default) with gcc
+#
+AR      = ar
+ARFLAGS = rv
+RANLIB  = /usr/bin/ranlib
+#
+CC      = gcc
+CFLAGS  = -O2 -w -Dlinux -DLITTLE_ENDIAN -DINTEGER_IS_INT
+FASTCFLAGS = $(CFLAGS)
+#
+FC      = sunf95
+FFLAGS  = -O -w -m64 -Dlinux -DLITTLE_ENDIAN -DINTEGER_IS_INT
+

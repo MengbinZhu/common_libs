@@ -1,0 +1,28 @@
+#!/bin/bash
+# $Id: netcdf_configure_sunf95_linux 5220 2017-02-21 13:34:29Z idculv $
+#
+# netcdf-c (v4.4.x) shell script for a local configure
+# USERS SHOULD MODIFY THIS SCRIPT AS REQUIRED FOR LOCAL INSTALL
+#
+# Compiler: sunf95 / Linux (Oracle local default) with gcc
+#
+PREFIX=${1-$LIBS_ROOT/sunf95}
+echo
+echo "Platform:"
+uname -a
+echo
+echo "Fortran compiler:"
+sunf95 -V
+echo
+echo "C compiler:"
+gcc --version
+echo
+echo "Installation target:"
+echo "$PREFIX"
+echo
+#
+FC=sunf95 \
+CC=gcc       CFLAGS="-O2 -w" \
+           CPPFLAGS="-I$PREFIX/include -DsunFortran" \
+            LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64" \
+  ./configure --disable-v2 --disable-dap --disable-shared --prefix=$PREFIX

@@ -1,0 +1,30 @@
+#!/bin/bash
+# $Id: netcdff_configure_g95_linux 4896 2016-05-30 08:54:50Z frdo $
+#
+# netcdf-fortran (v4.4.x) shell script for a local configure
+# USERS SHOULD MODIFY THIS SCRIPT AS REQUIRED FOR LOCAL INSTALL
+#
+# Compiler: g95 / Linux (G95 local default)
+#
+PREFIX=${1-$LIBS_ROOT/g95}
+echo
+echo "Platform:"
+uname -a
+echo
+echo "Fortran compiler:"
+g95 --version
+echo
+echo "C compiler:"
+gcc --version
+echo
+echo "Installation target:"
+echo "$PREFIX"
+echo
+#
+CC=gcc       CFLAGS="-O2 -w" \
+           CPPFLAGS="-I$PREFIX/include" \
+FC=g95      FCFLAGS="-O2 -Wno=155" \
+F77=g95      FFLAGS="-O2 -Wno=155" \
+            LDFLAGS="-L$PREFIX/lib -L$PREFIX/lib64" \
+               LIBS="-lhdf5 -lhdf5_hl -lnetcdf" \
+  ./configure --disable-shared --prefix=$PREFIX

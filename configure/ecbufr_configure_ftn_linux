@@ -1,0 +1,17 @@
+# $Id: ecbufr_configure_ftn_linux 4673 2015-12-15 10:14:04Z frdo $
+#
+#   ECMWF BUFR configuration file
+#
+# Compiler: ftn / Linux
+#
+AR      = ar
+ARFLAGS = rv
+RANLIB  = /usr/bin/ranlib
+#
+CC      = gcc
+CFLAGS  = -O2 -Dlinux -DLITTLE_ENDIAN -DINTEGER_IS_INT
+FASTCFLAGS = $(CFLAGS)
+#
+FC      = ftn
+FFLAGS  = -O2 -ef -Dlinux -DLITTLE_ENDIAN -DINTEGER_IS_INT
+
